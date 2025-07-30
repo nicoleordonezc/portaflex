@@ -1,4 +1,4 @@
-class Cliente {
+export class Cliente {
     #identificador = 0;
     constructor(nombre, correo, telefono) {
 

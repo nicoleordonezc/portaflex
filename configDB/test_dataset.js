@@ -91,14 +91,14 @@ db.createCollection("propuestas", {
                     description: "Plazsos tiene fecha de inicio y fecha de cierre",
                     required:[
                         "fechaInicio",
-                        "fechaCierre"
+                        "fechaFin"
                     ],
                     properties:{
                         fecha_inicio:{
                             bsonType:"date",
                             description: "La fecha de inicio debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
                         },
-                        fecha_cierre:{
+                        fecha_fin:{
                             bsonType:"date",
                             description: "La fecha de inicio debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
                         }
