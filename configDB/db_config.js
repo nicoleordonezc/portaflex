@@ -309,7 +309,7 @@ db.createCollection("finanzas", {
             bsonType:"object",
             required:[
                 "_id",
-                "proyecto",
+                "contrato",
                 "ingresos",
                 "egresos",
                 "cliente_id"
@@ -319,12 +319,14 @@ db.createCollection("finanzas", {
                     bsonType: "objectId",
                     description: "Identificador único"
                 },
-                proyecto:{
+                contrato:{
                     bsonType: "object",
-                    description: "Contácto tiene: telefono y correo",
+                    description: "EL contrato tiene nombre, precio, fecha de inicio y fecha de fin",
                     required:[
                         "nombre",
                         "precio",
+                        "fecha_inicio",
+                        "fecha_fin",
                     ],
                     properties:{
                         nombre: {
@@ -336,6 +338,14 @@ db.createCollection("finanzas", {
                             bsonType:"int",
                             description:"El precio debe ser entero"
                         },
+                        fecha_inicio:{
+                            bsonType:"date",
+                            description: "La fecha de inicio debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                        },
+                        fecha_fin:{
+                            bsonType:"date",
+                            description: "La fecha de fin debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                        }
                     }
                 },
                 ingresos:{

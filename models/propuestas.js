@@ -1,10 +1,10 @@
 export class Propuesta {
-    constructor(nombre, descripcion, precio, plazo, estado, cliente){
+    constructor(nombre, descripcion, precio, plazo, estado, clienteID){
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.plazo = plazo
         this.estado = estado;
-        this.cliente = cliente
+        this.cliente = clienteId
     }
 }
