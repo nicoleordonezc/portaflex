@@ -63,7 +63,7 @@ db.createCollection("propuestas", {
                 "nombre",
                 "descripcion",
                 "precio",
-                "plazos",
+                "plazo",
                 "estado",
                 "cliente"
             ],
@@ -86,24 +86,9 @@ db.createCollection("propuestas", {
                     bsonType:"int",
                     description:"El precio debe ser entero"
                 },
-                plazos:{
-                    bsonType: "object",
-                    description: "Plazsos tiene fecha de inicio y fecha de cierre",
-                    required:[
-                        "fechaInicio",
-                        "fechaFin"
-                    ],
-                    properties:{
-                        fecha_inicio:{
-                            bsonType:"date",
-                            description: "La fecha de inicio debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
-                        },
-                        fecha_fin:{
-                            bsonType:"date",
-                            description: "La fecha de inicio debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
-                        }
-                    },                    
-                    additionalProperties: false
+                plazo:{
+                    bsonType:"date",
+                    description: "La fecha de plazo debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
                 },
                 estado:{
                     bsonType: "string",
@@ -117,7 +102,7 @@ db.createCollection("propuestas", {
             },                    
             additionalProperties: false
         }}
-})
+});
 
 //Colección de entregables
 
@@ -166,3 +151,102 @@ db.createCollection("entregables", {
 });
 
 //Colección de proyectos
+
+
+db.createCollection("proyectos", {
+    validator: {
+        $jsonSchema:{
+            bsonType:"object",
+            required:[
+                "_id",
+                "nombre",
+                "descripcion",
+                "precio",
+                "plazo",
+                "estado",
+                "cliente",
+                "entregables"
+            ],
+            properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "El nombre de la propuesta debe iniciar con mayúscula"
+                },
+                descripcion:{
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "La descripción de la propuesta debe iniciar con mayúscula"
+                },
+                precio:{
+                    bsonType:"int",
+                    description:"El precio debe ser entero"
+                },
+                plazo:{
+                    bsonType:"date",
+                    description: "La fecha de plazo debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                },
+                estado:{
+                    bsonType: "string",
+                    enum: ["Pendiente", "Aceptado", "Rechazado"],
+                    description: "El estado debe estar Pendiente, Aceptado, Rechazado"
+                },
+                cliente:{
+                   bsonType: "object",
+                    description: "El cliente tiene: nombre e identificador",
+                    required:[
+                        "nombre",
+                        "identificador"
+                    ],
+                    properties:{
+                    nombre: {
+                        bsonType: "string",
+                        pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)(\\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$",
+                        description: "El nombre y apellido deben iniciar con mayúscula"
+                    },
+                    identificador:{
+                        bsonType:"string",
+                        minLength: 9,
+                        maxLength: 10,
+                        description:"El identificador puede ser máximo 10 dígitos para persona natural y mínimo 9 dígitos para NIT o RUT"
+                    }
+                }, additionalProperties: false},
+                entregables:{
+                    bsonType: "array",
+                    description: "El campo 'entregables' es una lista",
+                    items: {
+                        bsonType: "object",
+                        description: "Cada elemento debe ser un object de entregables",
+                        required:[
+                            "nombre",
+                            "fecha_limite",
+                            "estado"
+                        ],
+                        properties:{
+                            nombre: {
+                                bsonType: "string",
+                                pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                                description: "El nombre de la propuesta debe iniciar con mayúscula"
+                            },
+                            fecha_limite:{
+                                bsonType:"date",
+                                description: "La fecha limite debe contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                            },
+                            estado:{
+                                bsonType: "string",
+                                enum: ["Pendiente", "Aprobado", "Entregado", "Rechazado"],
+                                description: "El estado debe estar Pendiente, Aprobado, Entregado, Rechazado"
+                            }
+                        },                    
+                        additionalProperties: false
+                    }
+                },
+                }
+            },                    
+            additionalProperties: false
+        }}
+)
