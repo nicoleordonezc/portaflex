@@ -249,4 +249,57 @@ db.createCollection("proyectos", {
             },                    
             additionalProperties: false
         }}
-)
+);
+
+//Colección de contratos
+
+db.createCollection("contratos", {
+    validator: {
+        $jsonSchema:{
+            bsonType:"object",
+            required:[
+                "_id",
+                "fecha_inicio",
+                "fecha_fin",
+                "valor",
+                "condiciones",
+                "proyecto_id",
+                "cliente_id"
+            ],
+            properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                fecha_inicio:{
+                    bsonType:"date",
+                    description: "La fecha de inicio debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                },
+                fecha_fin:{
+                    bsonType:"date",
+                    description: "La fecha de fin debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                },
+                valor:{
+                    bsonType:"int",
+                    description:"El valor debe ser entero"
+                },
+                condiciones:{
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "La condición del contrato debe iniciar con mayúscula"
+                },
+                proyecto_id:{
+                    bsonType: "objectId",
+                    description: "Identificador único del proyecto"
+                },
+                cliente_id:{
+                    bsonType: "objectId",
+                    description: "Identificador único del cliente"
+                }
+            }
+    }}
+});
+
+//Colección de finanzas
+
+
