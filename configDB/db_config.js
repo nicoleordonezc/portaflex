@@ -104,52 +104,6 @@ db.createCollection("propuestas", {
         }}
 });
 
-//Colección de entregables
-
-db.createCollection("entregables", {
-    validator: {
-        $jsonSchema:{
-            bsonType:"object",
-            required:[
-                "_id",
-                "nombre",
-                "descripcion",
-                "fecha_limite",
-                "estado",
-                "proyecto_id"
-            ],
-             properties:{
-                _id:{
-                    bsonType: "objectId",
-                    description: "Identificador único"
-                },
-                nombre: {
-                    bsonType: "string",
-                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
-                    description: "El nombre de la propuesta debe iniciar con mayúscula"
-                },
-                descripcion:{
-                    bsonType: "string",
-                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
-                    description: "La descripción de la propuesta debe iniciar con mayúscula"
-                },
-                fecha_limite:{
-                    bsonType:"date",
-                    description: "La fecha limite debe contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
-                },
-                estado:{
-                    bsonType: "string",
-                    enum: ["Pendiente", "Aprobado", "Entregado", "Rechazado"],
-                    description: "El estado debe estar Pendiente, Aprobado, Entregado, Rechazado"
-                },
-                proyecto_id:{
-                    bsonType: "objectId",
-                    description: "Identificador único del proyecto"
-                }
-            }
-    }}
-});
-
 //Colección de proyectos
 
 
@@ -241,15 +195,61 @@ db.createCollection("proyectos", {
                                 enum: ["Pendiente", "Aprobado", "Entregado", "Rechazado"],
                                 description: "El estado debe estar Pendiente, Aprobado, Entregado, Rechazado"
                             }
-                        },                    
-                        additionalProperties: false
+                        }
                     }
                 },
-                }
             },                    
             additionalProperties: false
+                }
         }}
 );
+
+//Colección de entregables
+
+db.createCollection("entregables", {
+    validator: {
+        $jsonSchema:{
+            bsonType:"object",
+            required:[
+                "_id",
+                "nombre",
+                "descripcion",
+                "fecha_limite",
+                "estado",
+                "proyecto_id"
+            ],
+             properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "El nombre de la propuesta debe iniciar con mayúscula"
+                },
+                descripcion:{
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "La descripción de la propuesta debe iniciar con mayúscula"
+                },
+                fecha_limite:{
+                    bsonType:"date",
+                    description: "La fecha limite debe contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                },
+                estado:{
+                    bsonType: "string",
+                    enum: ["Pendiente", "Aprobado", "Entregado", "Rechazado"],
+                    description: "El estado debe estar Pendiente, Aprobado, Entregado, Rechazado"
+                },
+                proyecto_id:{
+                    bsonType: "objectId",
+                    description: "Identificador único del proyecto"
+                }
+            }
+    }}
+});
+
 
 //Colección de contratos
 
