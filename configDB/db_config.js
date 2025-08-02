@@ -9,7 +9,8 @@ db.createCollection("clientes", {
                 "_id",
                 "nombre",
                 "identificador",
-                "contacto"
+                "correo",
+                "telefono"
             ],
             properties:{
                 _id:{
@@ -27,30 +28,20 @@ db.createCollection("clientes", {
                     maxLength: 10,
                     description:"El identificador puede ser máximo 10 dígitos para persona natural y mínimo 9 dígitos para NIT o RUT"
                 },
-                contacto:{
-                    bsonType: "object",
-                    description: "Contácto tiene: telefono y correo",
-                    required:[
-                        "telefono",
-                        "correo"
-                    ],
-                    properties: {
-                        telefono:{
-                            bsonType: "string",
-                            pattern: "\\d{3}-\\d{3}-\\d{4}",
-                            description: "El patrón del número telefónico debe ser xxx-xxx-xxxx"
-                        },
-                        correo: {
-                            bsonType: "string",
-                            pattern: "@\\w+\\.com$",
-                            description: "El correo debe tener @ y finalizar en .com"
-                        }
-                    },                    
-                        additionalProperties: false
+                telefono:{
+                    bsonType: "string",
+                    pattern: "\\d{3}\\d{3}\\d{4}",
+                    description: "El patrón del número telefónico debe ser xxx-xxx-xxxx"
+                },
+                correo: {
+                    bsonType: "string",
+                    pattern: "\\w+@\\w+\\.\\w+$",
+                    description: "El correo debe tener @ y finalizar en .co, .com .es etc"
+                }
             }
         }
     }}
-});
+);
 
 //Colección de propuestas
 

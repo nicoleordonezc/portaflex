@@ -1,3 +1,6 @@
+import { crearCliente } from "../controllers/clientesControllers.js";
+import inquirer from "inquirer";
+
 export async function menuFreelancer() {
     let salida = false;
 
@@ -44,4 +47,46 @@ export async function menuFreelancer() {
                 break;
         }
     }
+}
+
+async function clientes() {
+     const {opcion} = await inquirer.prompt([{
+            type: "list",
+            name: "opcion",
+            message: "Seleccione una opción",
+            choices: [
+                "Agregar Clientes",
+                "❌ Salir"
+            ]
+        }]);
+        switch (opcion) {
+            case "Agregar Clientes":
+                const respuestas = await inquirer.prompt([
+                {
+                    type: "input",
+                    name: "nombre",
+                    message: "Ingrese el nombre del cliente o empresa:"
+                },
+                {
+                    type: "input",
+                    name: "identificador",
+                    message: "Ingrese el documento del cliente o NIT/RUT:"
+                },
+                {
+                    type: "input",
+                    name: "correo",
+                    message: "Ingrese el Correo del cliente o empresa:"
+                },
+                {
+                    type: "input",
+                    name: "telefono",
+                    message: "Ingrese el telefono del cliente o empresa:"
+                },
+            ]);
+                await crearCliente(respuestas)
+                break;
+        
+            default:
+                break;
+        }
 }

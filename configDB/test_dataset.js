@@ -3,46 +3,36 @@
 let cliente1 = db.clientes.insertOne({
   nombre: "Carlos Ramírez",
   identificador: "123456789",
-  contacto: {
-    telefono: "321-654-9870",
-    correo: "carlosr@gmail.com"
-  }
+  telefono: "3216540870",
+  correo: "carlosr@gmail.com"
 }).insertedId;
 
 let cliente2 = db.clientes.insertOne({
   nombre: "Laura González",
   identificador: "9876543210",
-  contacto: {
-    telefono: "300-111-2222",
-    correo: "laurag@hotmail.com"
-  }
+  telefono: "3001112222",
+  correo: "laurag@hotmail.com"
 }).insertedId;
 
 let cliente3 = db.clientes.insertOne({
   nombre: "Esteban Ríos",
   identificador: "112233445",
-  contacto: {
-    telefono: "310-222-3333",
-    correo: "estebanr@outlook.com"
-  }
+  telefono: "3102223333",
+  correo: "estebanr@outlook.com"
 }).insertedId;
 
 let cliente4 = db.clientes.insertOne({
   nombre: "María Fernanda Suárez",
   identificador: "9988776655",
-  contacto: {
-    telefono: "312-444-5555",
-    correo: "maria.suarez@yahoo.com"
-  }
+  telefono: "3124445555",
+  correo: "maria.suarez@yahoo.com"
 }).insertedId;
 
 let cliente5 = db.clientes.insertOne({
   nombre: "Julián Navarro",
   identificador: "1010101010",
-  contacto: {
-    telefono: "314-666-7777",
-    correo: "julian@empresa.com"
-  }
+  telefono: "3146667777",
+  correo: "julian@empresa.com"
 }).insertedId;
 
 //Data propuestas
