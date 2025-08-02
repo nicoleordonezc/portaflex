@@ -17,5 +17,20 @@ export async function crearCliente({nombre, identificador, correo, telefono}) {
 };
 
 export async function verClientes() {
-    
-}
+    const clienteColeccion = await clientes();
+    try {
+        const cliente = await clienteColeccion.find().toArray();
+        if (cliente.length === 0) {
+        console.log("No hay clientes registrados");
+        } else {
+            console.log("**************Lista de clientes***************");
+            cliente.forEach((c) => {
+            console.log(
+                `Nombre: ${c.nombre} | Documento: ${c.identificador} | Telefono: ${c.telefono} | Correo: ${c.correo} `
+            )});
+            console.log("*********************************************")}
+    } catch (error) {
+        console.log("Hubo un error al listar los clientes"+ error);
+    }
+};
+

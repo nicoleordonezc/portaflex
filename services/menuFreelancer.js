@@ -1,4 +1,4 @@
-import { crearCliente } from "../controllers/clientesControllers.js";
+import { crearCliente, verClientes } from "../controllers/clientesControllers.js";
 import inquirer from "inquirer";
 
 export async function menuFreelancer() {
@@ -56,6 +56,7 @@ async function clientes() {
             message: "Seleccione una opción",
             choices: [
                 "Agregar Clientes",
+                "Listar Clientes",
                 "❌ Salir"
             ]
         }]);
@@ -85,7 +86,9 @@ async function clientes() {
             ]);
                 await crearCliente(respuestas)
                 break;
-        
+            case "Listar Clientes":
+                await verClientes();
+                break;
             default:
                 break;
         }
