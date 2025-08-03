@@ -1,0 +1,378 @@
+
+//Colección de clientes
+
+db.createCollection("clientes", {
+    validator: {
+        $jsonSchema:{
+            bsonType:"object",
+            required:[
+                "_id",
+                "nombre",
+                "identificador",
+                "correo",
+                "telefono"
+            ],
+            properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)(\\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$",
+                    description: "El nombre y apellido deben iniciar con mayúscula"
+                },
+                identificador:{
+                    bsonType:"string",
+                    minLength: 9,
+                    maxLength: 10,
+                    description:"El identificador puede ser máximo 10 dígitos para persona natural y mínimo 9 dígitos para NIT o RUT"
+                },
+                telefono:{
+                    bsonType: "string",
+                    pattern: "\\d{3}\\d{3}\\d{4}",
+                    description: "El patrón del número telefónico debe ser xxx-xxx-xxxx"
+                },
+                correo: {
+                    bsonType: "string",
+                    pattern: "\\w+@\\w+\\.\\w+$",
+                    description: "El correo debe tener @ y finalizar en .co, .com .es etc"
+                }
+            }
+        }
+    }}
+);
+
+//Colección de propuestas
+
+db.createCollection("propuestas", {
+    validator: {
+        $jsonSchema:{
+            bsonType:"object",
+            required:[
+                "_id",
+                "nombre",
+                "descripcion",
+                "precio",
+                "plazo",
+                "estado",
+                "cliente"
+            ],
+            properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "El nombre de la propuesta debe iniciar con mayúscula"
+                },
+                descripcion:{
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "La descripción de la propuesta debe iniciar con mayúscula"
+                },
+                precio:{
+                    bsonType:"int",
+                    description:"El precio debe ser entero"
+                },
+                plazo:{
+                    bsonType:"date",
+                    description: "La fecha de plazo debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                },
+                estado:{
+                    bsonType: "string",
+                    enum: ["Pendiente", "Aceptado", "Rechazado"],
+                    description: "El estado debe estar Pendiente, Aceptado, Rechazado"
+                },
+                cliente:{
+                    bsonType: "objectId",
+                    description: "El cliente debe tener su identificador único"
+                }
+            },                    
+            additionalProperties: false
+        }}
+});
+
+//Colección de proyectos
+
+
+db.createCollection("proyectos", {
+    validator: {
+        $jsonSchema:{
+            bsonType:"object",
+            required:[
+                "_id",
+                "nombre",
+                "descripcion",
+                "precio",
+                "plazo",
+                "estado",
+                "cliente"
+            ],
+            properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "El nombre de la propuesta debe iniciar con mayúscula"
+                },
+                descripcion:{
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "La descripción de la propuesta debe iniciar con mayúscula"
+                },
+                precio:{
+                    bsonType:"int",
+                    description:"El precio debe ser entero"
+                },
+                plazo:{
+                    bsonType:"date",
+                    description: "La fecha de plazo debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                },
+                estado:{
+                    bsonType: "string",
+                    enum: ["Activo", "Pausado", "Finalizado", "Cancelado"],
+                    description: "El estado debe estar Pendiente, Aceptado, Rechazado"
+                },
+                cliente:{
+                    bsonType: "objectId",
+                    description: "El cliente debe tener su identificador único"
+                },
+                entregables:{
+                    bsonType: "array",
+                    description: "El campo 'entregables' es una lista",
+                    items: {
+                        bsonType: "object",
+                        description: "Cada elemento debe ser un object de entregables",
+                        required:[
+                            "nombre",
+                            "fecha_limite",
+                            "estado"
+                        ],
+                        properties:{
+                            nombre: {
+                                bsonType: "string",
+                                pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                                description: "El nombre de la propuesta debe iniciar con mayúscula"
+                            },
+                            fecha_limite:{
+                                bsonType:"date",
+                                description: "La fecha limite debe contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                            },
+                            estado:{
+                                bsonType: "string",
+                                enum: ["Pendiente", "Aprobado", "Entregado", "Rechazado"],
+                                description: "El estado debe estar Pendiente, Aprobado, Entregado, Rechazado"
+                            }
+                        }
+                    }
+                },
+            },                    
+            additionalProperties: false
+                }
+        }}
+);
+
+//Colección de entregables
+
+db.createCollection("entregables", {
+    validator: {
+        $jsonSchema:{
+            bsonType:"object",
+            required:[
+                "_id",
+                "nombre",
+                "descripcion",
+                "fecha_limite",
+                "estado",
+                "proyecto_id"
+            ],
+             properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "El nombre de la propuesta debe iniciar con mayúscula"
+                },
+                descripcion:{
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "La descripción de la propuesta debe iniciar con mayúscula"
+                },
+                fecha_limite:{
+                    bsonType:"date",
+                    description: "La fecha limite debe contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                },
+                estado:{
+                    bsonType: "string",
+                    enum: ["Pendiente", "Aprobado", "Entregado", "Rechazado"],
+                    description: "El estado debe estar Pendiente, Aprobado, Entregado, Rechazado"
+                },
+                proyecto_id:{
+                    bsonType: "objectId",
+                    description: "Identificador único del proyecto"
+                }
+            }
+    }}
+});
+
+
+//Colección de contratos
+
+db.createCollection("contratos", {
+    validator: {
+        $jsonSchema:{
+            bsonType:"object",
+            required:[
+                "_id",
+                "fecha_inicio",
+                "fecha_fin",
+                "valor",
+                "condiciones",
+                "proyecto_id",
+                "cliente_id"
+            ],
+            properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                fecha_inicio:{
+                    bsonType:"date",
+                    description: "La fecha de inicio debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                },
+                fecha_fin:{
+                    bsonType:"date",
+                    description: "La fecha de fin debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                },
+                valor:{
+                    bsonType:"int",
+                    description:"El valor debe ser entero"
+                },
+                condiciones:{
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                    description: "La condición del contrato debe iniciar con mayúscula"
+                },
+                proyecto_id:{
+                    bsonType: "objectId",
+                    description: "Identificador único del proyecto"
+                },
+                cliente_id:{
+                    bsonType: "objectId",
+                    description: "Identificador único del cliente"
+                }
+            }
+    }}
+});
+
+//Colección de finanzas
+
+
+db.createCollection("finanzas", {
+    validator: {
+        $jsonSchema:{
+            bsonType:"object",
+            required:[
+                "_id",
+                "contrato",
+                "cliente_id"
+            ],
+            properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                contrato:{
+                    bsonType: "object",
+                    description: "EL contrato tiene nombre, precio, fecha de inicio y fecha de fin",
+                    required:[
+                        "precio",
+                        "fecha_inicio",
+                        "fecha_fin",
+                    ],
+                    properties:{
+                        precio:{
+                            bsonType:"int",
+                            description:"El precio debe ser entero"
+                        },
+                        fecha_inicio:{
+                            bsonType:"date",
+                            description: "La fecha de inicio debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                        },
+                        fecha_fin:{
+                            bsonType:"date",
+                            description: "La fecha de fin debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                        }
+                    }
+                },
+                ingresos:{
+                    bsonType: "array",
+                    description: "El campo 'entregables' es una lista",
+                    items: {
+                        bsonType: "object",
+                        description: "Cada elemento debe ser un object de entregables",
+                        required:[
+                            "valor",
+                            "fecha",
+                            "tipo"
+                        ],
+                        properties:{
+                            fecha:{
+                            bsonType:"date",
+                            description: "La fecha debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                            },
+                            valor:{
+                                bsonType:"int",
+                                description:"El valor debe ser entero"
+                            },
+                            tipo:{
+                                bsonType: "string",
+                                pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                                description: "La el tipo debe iniciar con mayúscula"
+                            },
+                        }
+                }
+                },
+                egresos:{
+                    bsonType: "array",
+                    description: "El campo 'entregables' es una lista",
+                    items: {
+                        bsonType: "object",
+                        description: "Cada elemento debe ser un object de entregables",
+                        required:[
+                            "valor",
+                            "fecha",
+                            "tipo"
+                        ],
+                        properties:{
+                            fecha:{
+                            bsonType:"date",
+                            description: "La fecha debe ser contener la fecha completa ISODate('2025-07-01T10:45:00Z')"
+                            },
+                            valor:{
+                                bsonType:"int",
+                                description:"El valor debe ser entero"
+                            },
+                            tipo:{
+                                bsonType: "string",
+                                pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
+                                description: "La el tipo debe iniciar con mayúscula"
+                            },
+                        }
+                }
+                },
+                cliente_id:{
+                    bsonType: "objectId",
+                    description: "Identificador único del cliente"
+                }
+        }}
+}})
