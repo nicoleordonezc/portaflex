@@ -1,5 +1,6 @@
 import inquirer from "inquirer";
-import { registrarIngreso } from "../controllers/finanzasControllers.js";
+import { registrarIngreso, registrarEgreso } from "../controllers/finanzasControllers.js";
+import { calcularBalancePorCliente, calcularBalancePorFecha } from "../controllers/finanzasFactory.js";
 
 export async function finanzas() {
   let salir = false;

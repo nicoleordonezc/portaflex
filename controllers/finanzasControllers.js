@@ -118,21 +118,22 @@ const nuevaFinanza = new Finanzas(
 
 // Guardar en Mongo
 await finanzasCol.insertOne({
-  contrato: {
-    precio: nuevaFinanza.valor,
-    fecha_inicio: nuevaFinanza.fecha_inicio,
-    fecha_fin: nuevaFinanza.fecha_fin,
+    contrato: {
+        precio: nuevaFinanza.valor,
+        fecha_inicio: nuevaFinanza.fecha_inicio,
+        fecha_fin: nuevaFinanza.fecha_fin,
   },
   ingresos: nuevaFinanza.ingresos,
   egresos: nuevaFinanza.egresos,
   cliente_id: new ObjectId(nuevaFinanza.clienteID),
 }, { session });
+console.log("✅ Ingreso registrado exitosamente.");
 }})
-  } catch (err) {
+} catch (err) {
     console.error("❌ Error al registrar ingreso:", err.message);
-  } finally {
+} finally {
     await session.endSession();
-  }
+}
 };
 
 export async function registrarEgreso() {
@@ -188,8 +189,8 @@ export async function registrarEgreso() {
         {
           type: "list",
           name: "tipoTransaccion",
-          message: "💳 Tipo de transacción:",
-          choices: ["Transferencia", "Efectivo", "Cheque", "Otro"],
+          message: "💳 Tipo de egreso:",
+          choices: ["Insumos", "Sevicos", "Honorarios", "Otro"],
         },
       ]);
 
@@ -243,18 +244,19 @@ export async function registrarEgreso() {
             }
           ]
         );
-
+        
         await finanzasCol.insertOne({
-          contrato: {
-            precio: nuevaFinanza.valor,
-            fecha_inicio: nuevaFinanza.fecha_inicio,
-            fecha_fin: nuevaFinanza.fecha_fin,
-          },
-          ingresos: nuevaFinanza.ingresos,
-          egresos: nuevaFinanza.egresos,
-          cliente_id: new ObjectId(nuevaFinanza.clienteID),
+            contrato: {
+                precio: nuevaFinanza.valor,
+                fecha_inicio: nuevaFinanza.fecha_inicio,
+                fecha_fin: nuevaFinanza.fecha_fin,
+            },
+            ingresos: nuevaFinanza.ingresos,
+            egresos: nuevaFinanza.egresos,
+            cliente_id: new ObjectId(nuevaFinanza.clienteID),
         }, { session });
-      }
+        console.log("✅ Egreso registrado exitosamente.");
+    }
     });
   } catch (err) {
     console.error("❌ Error al registrar egreso:", err.message);
