@@ -19,7 +19,7 @@ export async function seleccionarProyecto() {
     {
       type: "list",
       name: "proyectoID",
-      message: "📌 Selecciona el proyecto que deseas editar:",
+      message: "📌 Selecciona el proyecto que deseas:",
       choices: opciones
     }
   ]);

@@ -3,6 +3,7 @@ import clientes from "./freelancerClientes.js"
 import propuestas from "./freelancerPropuestas.js";
 import { proyectos } from "./freeelancerProyectos.js";
 import { entregables } from "./freelancerEntregables.js";
+import { contratos } from "./freelancerContratos.js";
 
 
 export async function menuFreelancer() {

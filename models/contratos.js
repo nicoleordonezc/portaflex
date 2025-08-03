@@ -1,4 +1,4 @@
-export class Contrato{
+export default class Contrato{
     constructor(fechaInicio, fechaFin, valor, condiciones, proyectoID, clienteID){
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
