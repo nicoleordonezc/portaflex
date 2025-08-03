@@ -1,4 +1,4 @@
-import { entregables } from "../persistencia/db.js";
+import { entregables, proyectos } from "../persistencia/db.js";
 import { seleccionarProyecto } from "../utils/seleccionarProyecto.js";
 import { Entregable } from "../models/entregables.js";
 import inquirer from "inquirer";
@@ -7,7 +7,7 @@ import { client } from "../persistencia/db.js";
 
 export async function crearEntregable() {
   const entregablesCol = await entregables();
-
+  const proyectosCol = await proyectos();
   // Aquí se selecciona UN solo proyecto y se devuelve el ID directamente
   const proyectoId = await seleccionarProyecto();
 
@@ -34,11 +34,35 @@ export async function crearEntregable() {
     nombre,
     descripcion,
     new Date(fecha_limite),
-    estado,
-    new ObjectId(proyectoId)
+    estado
   );
 
-  await entregablesCol.insertOne(nuevo);
+  nuevo.proyecto = new ObjectId(proyectoId);
+
+  // Crear objeto para insertar que respete el esquema (proyecto_id en lugar de proyecto)
+  const documento = {
+    nombre: nuevo.nombre,
+    descripcion: nuevo.descripcion,
+    fecha_limite: nuevo.fecha_limite,
+    estado: nuevo.estado,
+    proyecto_id: nuevo.proyecto
+  };
+
+  await entregablesCol.insertOne(documento);
+  // Actualizar el proyecto con el ID del entregable
+   await proyectosCol.updateOne(
+    { _id: new ObjectId(proyectoId) },
+    {
+      $push: {
+        entregables: {
+          nombre: nuevo.nombre,
+          fecha_limite: nuevo.fecha_limite,
+          estado: nuevo.estado,
+        },
+      },
+    }
+  );
+
   console.log("✅ Entregable creado con éxito.");
 }
 
