@@ -152,6 +152,19 @@ export async function eliminarEntregable() {
     return;
   }
 
+  // Verificar estado del entregable
+  const entregable = await col.findOne({ _id: new ObjectId(idEntregable) });
+  if (!entregable) {
+    console.log("❌ Entregable no encontrado.");
+    return;
+  }
+
+  const estado = entregable.estado?.toLowerCase();
+  if (estado === "aprobado" || estado === "entregado") {
+    console.log("⚠️ No puedes eliminar un entregable que ha sido aprobado o entregado.");
+    return;
+  }
+
   const session = client.startSession();
   try {
     await session.withTransaction(async () => {
