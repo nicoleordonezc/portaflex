@@ -5,6 +5,6 @@ export class Propuesta {
         this.precio = precio;
         this.plazo = plazo
         this.estado = estado;
-        this.cliente = clienteId
+        this.cliente = clienteID
     }
 }
