@@ -69,7 +69,7 @@ async function nuevaPropuesta() {
       type: "list",
       name: "estado",
       message: "📍 Estado de la propuesta:",
-      choices: ["Pendiente", "Aceptada", "Rechazada"]
+      choices: ["Pendiente", "Aceptado", "Rechazado"]
     }
   ]);
 
@@ -79,7 +79,8 @@ async function nuevaPropuesta() {
     precio: respuestas.precio,
     plazo: new Date(respuestas.plazo),
     estado: respuestas.estado,
-    clienteID
+    clienteID,
+    entregables: []
   };
 }
 
@@ -164,7 +165,7 @@ async function editarPropuesta() {
           type: "list",
           name: "estado",
           message: "📍 Nuevo estado:",
-          choices: ["Pendiente", "Aceptada", "Rechazada"]
+          choices: ["Pendiente", "Aceptado", "Rechazado"]
         }
       ]);
       const estadoClase = new Estado();

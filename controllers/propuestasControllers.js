@@ -1,17 +1,24 @@
 import { Propuesta } from "../models/propuestas.js";
-import { propuestas } from "../persistencia/db.js";
+import Proyecto from "../models/proyectos.js"
+import { propuestas, proyectos } from "../persistencia/db.js";
 import chalk from "chalk";
 import _ from "lodash";
 
 export async function crearPropuesta({nombre, descripcion, precio, plazo, estado, clienteID}) {
-    const propuestaColeccion = await propuestas()
+    const propuestaColeccion = await propuestas();
     if (_.isEmpty(clienteID) || _.isEmpty(estado))
-        throw new Error(chalk.red("❌ Se deben llenar todos los datos."));
+      throw new Error(chalk.red("❌ Se deben llenar todos los datos."));
     try {
-        const propuesta = new Propuesta(nombre, descripcion, precio, plazo, estado, clienteID);
-        await propuestaColeccion.insertOne(propuesta);
-        console.log("Una nueva propuesta ha sido registrado");
-    } catch (error) {
+      const propuesta = new Propuesta(nombre, descripcion, precio, plazo, estado, clienteID);
+      await propuestaColeccion.insertOne(propuesta);
+      console.log("Una nueva propuesta ha sido registrado");
+      
+      if (estado === "Aceptado") {
+        const proyectoColeccion = await proyectos();
+        const proyecto = new Proyecto(nombre, descripcion, precio, plazo, estado, clienteID);
+        await proyectoColeccion.insertOne(proyecto);
+        console.log("🚀 Proyecto creado automáticamente al aceptar la propuesta.");
+        }}catch (error) {
         console.log("Hubo un error al registrar la propuesta"+ error);
     }
 };

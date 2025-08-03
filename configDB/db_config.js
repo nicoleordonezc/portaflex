@@ -109,8 +109,7 @@ db.createCollection("proyectos", {
                 "precio",
                 "plazo",
                 "estado",
-                "cliente",
-                "entregables"
+                "cliente"
             ],
             properties:{
                 _id:{
@@ -141,25 +140,9 @@ db.createCollection("proyectos", {
                     description: "El estado debe estar Pendiente, Aceptado, Rechazado"
                 },
                 cliente:{
-                   bsonType: "object",
-                    description: "El cliente tiene: nombre e identificador",
-                    required:[
-                        "nombre",
-                        "identificador"
-                    ],
-                    properties:{
-                    nombre: {
-                        bsonType: "string",
-                        pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)(\\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$",
-                        description: "El nombre y apellido deben iniciar con mayúscula"
-                    },
-                    identificador:{
-                        bsonType:"string",
-                        minLength: 9,
-                        maxLength: 10,
-                        description:"El identificador puede ser máximo 10 dígitos para persona natural y mínimo 9 dígitos para NIT o RUT"
-                    }
-                }, additionalProperties: false},
+                    bsonType: "objectId",
+                    description: "El cliente debe tener su identificador único"
+                },
                 entregables:{
                     bsonType: "array",
                     description: "El campo 'entregables' es una lista",

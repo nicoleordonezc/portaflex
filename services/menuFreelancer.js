@@ -1,6 +1,8 @@
 import inquirer from "inquirer";
 import clientes from "./freelancerClientes.js"
 import propuestas from "./freelancerPropuestas.js";
+import { proyectos } from "./freeelancerProyectos.js";
+
 
 export async function menuFreelancer() {
     let salida = false;
