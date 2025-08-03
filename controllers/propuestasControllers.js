@@ -15,3 +15,24 @@ export async function crearPropuesta({nombre, descripcion, precio, plazo, estado
         console.log("Hubo un error al registrar la propuesta"+ error);
     }
 };
+
+export async function verPropuestas() {
+  const propuestaColeccion = await propuestas();
+  const todas = await propuestaColeccion.find().toArray();
+
+  if (todas.length === 0) {
+    console.log("⚠️ No hay propuestas registradas.");
+    return;
+  }
+
+  console.log("📄 Lista de propuestas:");
+  todas.forEach((p, i) => {
+    console.log(`\n#${i + 1}`);
+    console.log(`🧾 Nombre: ${p.nombre}`);
+    console.log(`📝 Descripción: ${p.descripcion}`);
+    console.log(`💵 Precio: $${p.precio}`);
+    console.log(`⏳ Plazo: ${p.plazo}`);
+    console.log(`📍 Estado: ${p.estado}`);
+    console.log(`👤 Cliente ID: ${p.cliente}`);
+  });
+}
