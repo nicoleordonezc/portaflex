@@ -1,11 +1,7 @@
 import inquirer from "inquirer";
-import { ObjectId } from 'mongodb';
-import { clientes } from '../db/conexion.js';
-import { contratos } from '../db/conexion.js';
-import { finanzas as coleccionFinanzas } from '../db/conexion.js';
-import { finanzas } from '../models/finanzas.js';
+import { registrarIngreso } from "../controllers/finanzasControllers.js";
 
-export async function menuFinanzas() {
+export async function finanzas() {
   let salir = false;
 
   while (!salir) {
@@ -26,10 +22,10 @@ export async function menuFinanzas() {
 
     switch (opcion) {
       case '💰 Registrar Ingreso':
-        await registrarTransaccion('ingresos');
+        await registrarIngreso();
         break;
       case '💸 Registrar Egreso':
-        await registrarTransaccion('egresos');
+        await registrarEgreso();
         break;
       case '📈 Calcular Balance por Cliente':
         await calcularBalancePorCliente();

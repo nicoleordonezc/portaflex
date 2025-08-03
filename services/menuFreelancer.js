@@ -4,6 +4,7 @@ import propuestas from "./freelancerPropuestas.js";
 import { proyectos } from "./freeelancerProyectos.js";
 import { entregables } from "./freelancerEntregables.js";
 import { contratos } from "./freelancerContratos.js";
+import { finanzas } from "./freelancerFinanzas.js";
 
 
 export async function menuFreelancer() {

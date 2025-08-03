@@ -195,7 +195,6 @@ db.contratos.insertMany([
 db.finanzas.insertMany([
   {
     contrato: {
-      nombre: "Rediseño",
       precio: 15000000,
       fecha_inicio: ISODate("2025-07-01T00:00:00Z"),
       fecha_fin: ISODate("2025-12-01T00:00:00Z"),
@@ -228,7 +227,6 @@ db.finanzas.insertMany([
   },
   {
     contrato: {
-      nombre: "Automatización",
       precio: 20000000,
       fecha_inicio: ISODate("2025-08-01T00:00:00Z"),
       fecha_fin: ISODate("2026-02-01T00:00:00Z"),

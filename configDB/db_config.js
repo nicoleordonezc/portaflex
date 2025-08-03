@@ -284,8 +284,6 @@ db.createCollection("finanzas", {
             required:[
                 "_id",
                 "contrato",
-                "ingresos",
-                "egresos",
                 "cliente_id"
             ],
             properties:{
@@ -297,17 +295,11 @@ db.createCollection("finanzas", {
                     bsonType: "object",
                     description: "EL contrato tiene nombre, precio, fecha de inicio y fecha de fin",
                     required:[
-                        "nombre",
                         "precio",
                         "fecha_inicio",
                         "fecha_fin",
                     ],
                     properties:{
-                        nombre: {
-                        bsonType: "string",
-                        pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)",
-                        description: "El nombre de la propuesta debe iniciar con mayúscula"
-                        },
                         precio:{
                             bsonType:"int",
                             description:"El precio debe ser entero"

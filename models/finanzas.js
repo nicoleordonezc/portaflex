@@ -1,15 +1,11 @@
-import { Contrato } from "./contratos";
+import Contrato from "../models/contratos.js";
 
-export class finanzas extends Contrato{
-    constructor(fechaInicio, fechaFin, valor, nombre, clienteID, in_valor, in_fecha, in_tipo, eg_valor, eg_fecha, eg_tipo ) {
-        super(fechaInicio, fechaFin, valor),
-        this.nombre = nombre,
-        this.clienteID = clienteID,
-        this.in_valor = in_valor,
-        this.in_fecha = in_fecha,
-        this.in_tipo = in_tipo,
-        this.eg_valor = eg_valor,
-        this.eg_fecha = eg_fecha,
-        this.eg_tipo = eg_tipo
-    }
+export default class Finanzas extends Contrato {
+  constructor(fecha_inicio, fecha_fin, valor, clienteID, contratoID, ingresos = [], egresos = []) {
+    super(fecha_inicio, fecha_fin, valor);
+    this.clienteID = clienteID;
+    this.contratoID = contratoID;
+    this.ingresos = ingresos;
+    this.egresos = egresos;
+  }
 }
