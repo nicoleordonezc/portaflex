@@ -71,7 +71,7 @@ let proyecto1 = db.proyectos.insertOne({
   descripcion: "Optimización del sistema de inventario",
   precio: 1500000,
   plazo: ISODate("2025-09-15T00:00:00Z"),
-  estado: "Pendiente",
+  estado: "Activo",
   cliente: cliente1,
   entregables: [
     {
@@ -87,7 +87,7 @@ let proyecto2 = db.proyectos.insertOne({
   descripcion: "Implementación de nueva plataforma web",
   precio: 2800000,
   plazo: ISODate("2025-10-01T00:00:00Z"),
-  estado: "Aceptado",
+  estado: "Activo",
   cliente: cliente2,
   entregables: [
     {
@@ -103,7 +103,7 @@ let proyecto3 = db.proyectos.insertOne({
   descripcion: "Consultoría para mejora de procesos",
   precio: 900000,
   plazo: ISODate("2025-08-20T00:00:00Z"),
-  estado: "Rechazado",
+  estado: "Cancelado",
   cliente: cliente3,
   entregables: [
     {

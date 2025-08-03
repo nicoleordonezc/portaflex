@@ -136,7 +136,7 @@ db.createCollection("proyectos", {
                 },
                 estado:{
                     bsonType: "string",
-                    enum: ["Pendiente", "Aceptado", "Rechazado"],
+                    enum: ["Activo", "Pausado", "Finalizado", "Cancelado"],
                     description: "El estado debe estar Pendiente, Aceptado, Rechazado"
                 },
                 cliente:{

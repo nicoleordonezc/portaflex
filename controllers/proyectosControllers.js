@@ -17,42 +17,24 @@ export async function listarProyectos() {
   });
 }
 
-export async function editarProyecto() {
-  const coleccion = await proyectos();
-  const lista = await coleccion.find().toArray();
+export async function editarProyecto(proyectoID, nuevoEstado) {
+        const proyectoColeccion = await proyectos();
+        try {
+            const resultado = await proyectoColeccion.updateOne(
+                { _id: new ObjectId(proyectoID) },
+                { $set: { estado: nuevoEstado } }
+            );
 
-  if (lista.length === 0) {
-    console.log("📭 No hay proyectos registrados.");
-    return;
-  }
+            if (resultado.modifiedCount === 0) {
+                console.log("⚠️ No se encontró el proyecto o el estado ya estaba actualizado.");
+            } else {
+                console.log("✅ Estado del proyecto actualizado correctamente.");
+            }
+        } catch (error) {
+            console.error("❌ Error al actualizar el estado del proyecto:", error);
+        }
+};
 
-  const { idProyecto } = await inquirer.prompt([
-    {
-      type: "list",
-      name: "idProyecto",
-      message: "✏️ Selecciona el proyecto a editar:",
-      choices: lista.map(p => ({
-        name: `${p.nombre} (${p.estado})`,
-        value: p._id.toString()
-      }))
-    }
-  ]);
-
-  const { nuevoEstado } = await inquirer.prompt([
-    {
-      type: "input",
-      name: "nuevoEstado",
-      message: "🔄 Nuevo estado del proyecto:"
-    }
-  ]);
-
-  await coleccion.updateOne(
-    { _id: new ObjectId(idProyecto) },
-    { $set: { estado: nuevoEstado } }
-  );
-
-  console.log("✅ Proyecto actualizado.");
-}
 
 export async function eliminarProyecto() {
   const coleccion = await proyectos();

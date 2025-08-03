@@ -1,5 +1,6 @@
 import inquirer from "inquirer";
 import { listarProyectos, editarProyecto, eliminarProyecto } from "../controllers/proyectosControllers.js";
+import { seleccionarProyecto } from "../utils/seleccionarProyecto.js";
 
 
 export async function proyectos() {
@@ -25,7 +26,7 @@ export async function proyectos() {
         await listarProyectos();
         break;
       case "✏️ Editar proyecto":
-        await editarProyecto();
+        await editarEstadoProyecto();
         break;
       case "🗑️ Eliminar proyecto":
         await eliminarProyecto();
@@ -35,4 +36,20 @@ export async function proyectos() {
         break;
     }
   }
+};
+
+
+async function editarEstadoProyecto() {
+    const { id } = await seleccionarProyecto();
+    const { nuevoEstado } = await inquirer.prompt([
+        {
+            type: "list",
+            name: "nuevoEstado",
+            message: "📝 Selecciona el nuevo estado del proyecto:",
+            choices: ["Activo", "Pausado", "Finalizado", "Cancelado"]
+        }
+    ]);
+
+    editarProyecto(id, nuevoEstado)
 }
+
