@@ -19,7 +19,7 @@ export async function seleccionarCliente() {
     {
       type: "list",
       name: "clienteID",
-      message: "Selecciona el cliente que deseas actualizar:",
+      message: "Selecciona el cliente que deseas elegir:",
       choices: opciones
     }
   ]);

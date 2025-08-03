@@ -34,3 +34,12 @@ export async function verClientes() {
     }
 };
 
+export async function elimiarCliente(clienteID) {
+    const clienteColeccion = await clientes();
+    try {
+        await clienteColeccion.deleteOne({_id: clienteID})
+        console.log("El cliente ha sido eliminado");
+    } catch (error) {
+        console.log("Hubo un error al eliminar el cliente"+ error);
+    }
+}

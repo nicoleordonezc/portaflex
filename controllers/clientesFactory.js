@@ -1,4 +1,5 @@
-import { clientes } from "../persistencia/db"
+import { clientes } from "../persistencia/db.js";
+import { ObjectId } from "mongodb";
 
 class EditarCliente{
     async actualizar(){
@@ -10,7 +11,7 @@ export class Nombre extends EditarCliente{
     async actualizar(clienteID, nuevoNombre){
         const clienteColeccion = await clientes();
         try {
-            const resultado = clienteColeccion.updateOne({_id:clienteID},{$set:{nombre:nuevoNombre}});
+            const resultado = await clienteColeccion.updateOne({_id: new ObjectId(clienteID)},{$set:{nombre:nuevoNombre}});
 
             if (resultado.modifiedCount === 0) {
             console.log("⚠️ No se encontró el cliente o el nombre ya estaba actualizado.");
@@ -23,11 +24,11 @@ export class Nombre extends EditarCliente{
     }
 };
 
-export class Telefono extends EditarTelefono{
+export class Telefono extends EditarCliente{
     async actualizar(clienteID, nuevoTelefono){
         const clienteColeccion = await clientes();
         try {
-            const resultado = clienteColeccion.updateOne({_id:clienteID},{$set:{nombre:nuevoTelefono}});
+            const resultado = await clienteColeccion.updateOne({_id:clienteID},{$set:{telefono:nuevoTelefono}});
 
             if (resultado.modifiedCount === 0) {
             console.log("⚠️ No se encontró el cliente o el telefono ya estaba actualizado.");
@@ -40,11 +41,11 @@ export class Telefono extends EditarTelefono{
     }
 };
 
-export class Correo extends EditarCorreo{
+export class Correo extends EditarCliente{
     async actualizar(clienteID, nuevoCorreo){
         const clienteColeccion = await clientes();
         try {
-            const resultado = clienteColeccion.updateOne({_id:clienteID},{$set:{correo:nuevoCorreo}});
+            const resultado = await clienteColeccion.updateOne({_id:clienteID},{$set:{correo:nuevoCorreo}});
 
             if (resultado.modifiedCount === 0) {
             console.log("⚠️ No se encontró el cliente o el correo ya estaba actualizado.");
