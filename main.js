@@ -21,7 +21,7 @@ async function menu() {
                 await menuFreelancer()
                 break;
             case "Soy Cliente":
-                await menuCliente(identificador)
+                await menuCliente()
                 break;
             case "❌ Salir":
                 salida = true;
