@@ -2,6 +2,7 @@ import inquirer from "inquirer";
 import clientes from "./freelancerClientes.js"
 import propuestas from "./freelancerPropuestas.js";
 import { proyectos } from "./freeelancerProyectos.js";
+import { entregables } from "./freelancerEntregables.js";
 
 
 export async function menuFreelancer() {

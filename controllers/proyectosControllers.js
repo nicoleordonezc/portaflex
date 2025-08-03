@@ -1,6 +1,7 @@
 import { proyectos } from "../persistencia/db.js";
 import inquirer from "inquirer";
 import { ObjectId } from "mongodb";
+import { seleccionarProyecto } from "../utils/seleccionarProyecto.js";
 
 export async function listarProyectos() {
   const coleccion = await proyectos();
@@ -45,19 +46,35 @@ export async function eliminarProyecto() {
     return;
   }
 
-  const { idProyecto } = await inquirer.prompt([
+  const idProyecto = await seleccionarProyecto();
+  if (!idProyecto) return;
+
+  const proyecto = await coleccion.findOne({ _id: new ObjectId(idProyecto) });
+
+  if (!proyecto) {
+    console.log("❌ Proyecto no encontrado.");
+    return;
+  }
+
+  if (proyecto.estado === "Activo") {
+    console.log("⚠️ No puedes eliminar un proyecto con estado 'Activo'.");
+    return;
+  }
+
+  const { confirmar } = await inquirer.prompt([
     {
-      type: "list",
-      name: "idProyecto",
-      message: "🗑️ Selecciona el proyecto a eliminar:",
-      choices: lista.map(p => ({
-        name: `${p.nombre}`,
-        value: p._id.toString()
-      }))
+      type: "confirm",
+      name: "confirmar",
+      message: `¿Estás seguro de que deseas eliminar el proyecto "${proyecto.nombre}"?`,
+      default: false
     }
   ]);
 
-  await coleccion.deleteOne({ _id: new ObjectId(idProyecto) });
+  if (!confirmar) {
+    console.log("❌ Eliminación cancelada.");
+    return;
+  }
 
+  await coleccion.deleteOne({ _id: new ObjectId(idProyecto) });
   console.log("✅ Proyecto eliminado correctamente.");
 }

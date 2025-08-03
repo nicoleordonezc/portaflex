@@ -1,4 +1,3 @@
-import { Proyecto } from "./proyectos";
 export class Entregable {
     constructor(nombre, descripcion, fecha_limite, estado) {
         this.nombre = nombre;
