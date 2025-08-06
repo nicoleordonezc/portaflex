@@ -1,5 +1,6 @@
 import { menuFreelancer } from "./services/menuFreelancer.js";
 import { menuCliente } from "./services/menuCliente.js";
+import { menuExamen } from "./exports/menuExamen.js";
 import inquirer from 'inquirer';
 
 async function menu() {
@@ -13,6 +14,7 @@ async function menu() {
             choices: [
                 "Soy Freelancer",
                 "Soy Cliente",
+                "Examen",
                 "❌ Salir"
             ]
         }]);
@@ -23,6 +25,9 @@ async function menu() {
             case "Soy Cliente":
                 await menuCliente()
                 break;
+            case "Examen":
+                await menuExamen()
+                break;    
             case "❌ Salir":
                 salida = true;
                 console.log('Hasta luego👋🏻');

@@ -106,7 +106,7 @@ export class Estado extends EditarPropuesta {
                     propuesta.descripcion,
                     propuesta.precio,
                     propuesta.plazo,
-                    propuesta.estado,
+                    "Activo",
                     propuesta.cliente
                 );
 

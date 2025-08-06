@@ -15,7 +15,7 @@ export async function crearPropuesta({nombre, descripcion, precio, plazo, estado
       
       if (estado === "Aceptado") {
         const proyectoColeccion = await proyectos();
-        const proyecto = new Proyecto(nombre, descripcion, precio, plazo, estado, clienteID);
+        const proyecto = new Proyecto(nombre, descripcion, precio, plazo, "Activo", clienteID);
         await proyectoColeccion.insertOne(proyecto);
         console.log("🚀 Proyecto creado automáticamente al aceptar la propuesta.");
         }}catch (error) {
